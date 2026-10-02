@@ -10,7 +10,7 @@ import { Platform } from 'react-native';
 // export const CLOUD_AGENT_URL = 'wss://zenith-voice-agent.onrender.com/ws';
 // When empty, it falls back to local dev (10.0.2.2 for Android emulator).
 // -------------------------------------------------------------
-export const CLOUD_AGENT_URL = '';
+export const CLOUD_AGENT_URL = 'wss://rasta-ai-production.up.railway.app/ws';
 
 const DEFAULT_HOST = Platform.OS === 'android' ? '10.0.2.2' : 'localhost';
 let SOCKET_URL = CLOUD_AGENT_URL || `ws://${DEFAULT_HOST}:8765/ws`;
