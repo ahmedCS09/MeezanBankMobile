@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons/faBars";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons/faRightFromBracket";
+import AgentTarget from "../../components/AgentTarget";
 
 export default function DashboardScreen() {
     const dispatch = useDispatch();
@@ -47,58 +48,72 @@ export default function DashboardScreen() {
             }}>
 
                 {/* Account Card */}
-                <View style={{ width: "90%", minHeight: 160, gap: 10, backgroundColor: "#caace3", borderRadius: 20, padding: 20 }}>
-                    <Text style={{ fontSize: 20, fontWeight: "bold" }}>Ahmed Musab</Text>
-                    <Text>Current Account: 9913 1234567890</Text>
-                    <Text>Branch: JAMA MILLIA MALIR-KHI</Text>
-                    <View style={{ width: "100%", flexDirection: "row", justifyContent: "space-between", alignItems: "center", borderRadius: 10, backgroundColor: "#d9d9da", paddingHorizontal: 12, paddingVertical: 10 }}>
-                        <Text style={{ fontWeight: "bold" }}>PKR 125,000</Text>
-                        <TouchableOpacity><Text>HIDE</Text></TouchableOpacity>
+                <AgentTarget id="home-balance-amount" aliases={["balance-card", "check_balance"]} style={{ width: "90%" }}>
+                    <View style={{ width: "100%", minHeight: 160, gap: 10, backgroundColor: "#caace3", borderRadius: 20, padding: 20 }}>
+                        <Text style={{ fontSize: 20, fontWeight: "bold" }}>Ahmed Musab</Text>
+                        <Text>Current Account: 9913 1234567890</Text>
+                        <Text>Branch: JAMA MILLIA MALIR-KHI</Text>
+                        <View style={{ width: "100%", flexDirection: "row", justifyContent: "space-between", alignItems: "center", borderRadius: 10, backgroundColor: "#d9d9da", paddingHorizontal: 12, paddingVertical: 10 }}>
+                            <Text style={{ fontWeight: "bold" }}>PKR 125,000</Text>
+                            <TouchableOpacity><Text>HIDE</Text></TouchableOpacity>
+                        </View>
                     </View>
-                </View>
+                </AgentTarget>
 
                 {/* Action Buttons */}
-                <TouchableOpacity style={styles.gridItem} activeOpacity={0.8} onPress={() => navigation.navigate("SendMoney")}>
-                    <View style={styles.gridItemInner}>
-                        <Image source={require('../../assets/sendMoney.png')} style={{ width: 45, height: 45 }} resizeMode="contain" />
-                        <Text style={styles.gridItemText}>Send Money</Text>
-                    </View>
-                </TouchableOpacity>
+                <AgentTarget id="home-quick-action-send" aliases={["send_money", "SendMoney", "nav-sendmoney"]}>
+                    <TouchableOpacity style={styles.gridItem} activeOpacity={0.8} onPress={() => navigation.navigate("SendMoney")}>
+                        <View style={styles.gridItemInner}>
+                            <Image source={require('../../assets/sendMoney.png')} style={{ width: 45, height: 45 }} resizeMode="contain" />
+                            <Text style={styles.gridItemText}>Send Money</Text>
+                        </View>
+                    </TouchableOpacity>
+                </AgentTarget>
 
-                <TouchableOpacity style={styles.gridItem} activeOpacity={0.8} onPress={() => navigation.navigate("MobileTopup")}>
-                    <View style={styles.gridItemInner}>
-                        <Image source={require('../../assets/mobileTopup.png')} style={{ width: 45, height: 45 }} resizeMode="contain" />
-                        <Text style={styles.gridItemText}>Mobile Topup</Text>
-                    </View>
-                </TouchableOpacity>
+                <AgentTarget id="mobile-topup" aliases={["mobile_topup", "MobileTopup"]}>
+                    <TouchableOpacity style={styles.gridItem} activeOpacity={0.8} onPress={() => navigation.navigate("MobileTopup")}>
+                        <View style={styles.gridItemInner}>
+                            <Image source={require('../../assets/mobileTopup.png')} style={{ width: 45, height: 45 }} resizeMode="contain" />
+                            <Text style={styles.gridItemText}>Mobile Topup</Text>
+                        </View>
+                    </TouchableOpacity>
+                </AgentTarget>
 
-                <TouchableOpacity style={styles.gridItem} activeOpacity={0.8} onPress={() => navigation.navigate("Raast")}>
-                    <View style={styles.gridItemInner}>
-                        <Image source={require('../../assets/raast.png')} style={{ width: 45, height: 45 }} resizeMode="contain" />
-                        <Text style={styles.gridItemText}>Raast Payment</Text>
-                    </View>
-                </TouchableOpacity>
+                <AgentTarget id="raast-payment" aliases={["raast", "Raast"]}>
+                    <TouchableOpacity style={styles.gridItem} activeOpacity={0.8} onPress={() => navigation.navigate("Raast")}>
+                        <View style={styles.gridItemInner}>
+                            <Image source={require('../../assets/raast.png')} style={{ width: 45, height: 45 }} resizeMode="contain" />
+                            <Text style={styles.gridItemText}>Raast Payment</Text>
+                        </View>
+                    </TouchableOpacity>
+                </AgentTarget>
 
-                <TouchableOpacity style={styles.gridItem} activeOpacity={0.8} onPress={() => navigation.navigate("BillPayments")}>
-                    <View style={styles.gridItemInner}>
-                        <Image source={require('../../assets/billPayments.png')} style={{ width: 45, height: 45 }} resizeMode="contain" />
-                        <Text style={styles.gridItemText}>Bill Payments</Text>
-                    </View>
-                </TouchableOpacity>
+                <AgentTarget id="home-quick-action-paybill" aliases={["pay_bill", "BillPayments", "side-nav-bills"]}>
+                    <TouchableOpacity style={styles.gridItem} activeOpacity={0.8} onPress={() => navigation.navigate("BillPayments")}>
+                        <View style={styles.gridItemInner}>
+                            <Image source={require('../../assets/billPayments.png')} style={{ width: 45, height: 45 }} resizeMode="contain" />
+                            <Text style={styles.gridItemText}>Bill Payments</Text>
+                        </View>
+                    </TouchableOpacity>
+                </AgentTarget>
 
-                <TouchableOpacity style={styles.gridItem} activeOpacity={0.8} onPress={() => navigation.navigate("CardManagement")}>
-                    <View style={styles.gridItemInner}>
-                        <Image source={require('../../assets/cardManagement.png')} style={{ width: 45, height: 45 }} resizeMode="contain" />
-                        <Text style={styles.gridItemText}>Card Management</Text>
-                    </View>
-                </TouchableOpacity>
+                <AgentTarget id="cards-open-card-debit-visa" aliases={["manage_card", "view_cards", "CardManagement", "nav-cards"]}>
+                    <TouchableOpacity style={styles.gridItem} activeOpacity={0.8} onPress={() => navigation.navigate("CardManagement")}>
+                        <View style={styles.gridItemInner}>
+                            <Image source={require('../../assets/cardManagement.png')} style={{ width: 45, height: 45 }} resizeMode="contain" />
+                            <Text style={styles.gridItemText}>Card Management</Text>
+                        </View>
+                    </TouchableOpacity>
+                </AgentTarget>
 
-                <TouchableOpacity style={styles.gridItem} activeOpacity={0.8} onPress={() => navigation.navigate("QR")}>
-                    <View style={styles.gridItemInner}>
-                        <Image source={require('../../assets/qr.jpg')} style={{ width: 45, height: 45 }} resizeMode="contain" />
-                        <Text style={styles.gridItemText}>QR Payments</Text>
-                    </View>
-                </TouchableOpacity>
+                <AgentTarget id="home-quick-action-qr" aliases={["qr_pay", "QR", "nav-qrpay"]}>
+                    <TouchableOpacity style={styles.gridItem} activeOpacity={0.8} onPress={() => navigation.navigate("QR")}>
+                        <View style={styles.gridItemInner}>
+                            <Image source={require('../../assets/qr.jpg')} style={{ width: 45, height: 45 }} resizeMode="contain" />
+                            <Text style={styles.gridItemText}>QR Payments</Text>
+                        </View>
+                    </TouchableOpacity>
+                </AgentTarget>
 
                 <TouchableOpacity style={styles.gridItem} activeOpacity={0.8} onPress={() => navigation.navigate("Zakaat")}>
                     <View style={styles.gridItemInner}>

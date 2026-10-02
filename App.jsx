@@ -57,6 +57,12 @@ const RootStack = createNativeStackNavigator({
   },
 });
 
+import { AgentProvider } from './src/context/AgentContext';
+import AgentSpeechBanner from './src/components/AgentSpeechBanner';
+import AgentFloatingMic from './src/components/AgentFloatingMic';
+import { sendScreenChange } from './src/services/agentBridge';
+import { View } from 'react-native';
+
 const Navigation = createStaticNavigation(RootStack);
 
 function AppContent() {
@@ -78,6 +84,7 @@ function AppContent() {
                 index: 0,
                 routes: [{ name: 'Dashboard' }],
               });
+              sendScreenChange('Dashboard');
             } else {
               attempts++;
               if (attempts > 50) {
@@ -93,7 +100,33 @@ function AppContent() {
     restoreSession();
   }, [dispatch]);
 
-  return <Navigation ref={navigationRef} />;
+  const handleStateChange = () => {
+    try {
+      const currentRoute = navigationRef.current?.getCurrentRoute();
+      if (currentRoute?.name) {
+        sendScreenChange(currentRoute.name);
+      }
+    } catch (e) {
+      console.log('[nav] State change notice:', e);
+    }
+  };
+
+  return (
+    <View style={{ flex: 1 }}>
+      <Navigation
+        ref={navigationRef}
+        onReady={() => {
+          const currentRoute = navigationRef.current?.getCurrentRoute();
+          if (currentRoute?.name) {
+            sendScreenChange(currentRoute.name);
+          }
+        }}
+        onStateChange={handleStateChange}
+      />
+      <AgentSpeechBanner />
+      <AgentFloatingMic />
+    </View>
+  );
 }
 
 export default function App() {
@@ -101,7 +134,9 @@ export default function App() {
     <SafeAreaProvider>
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
-          <AppContent />
+          <AgentProvider>
+            <AppContent />
+          </AgentProvider>
         </QueryClientProvider>
       </Provider>
     </SafeAreaProvider>
